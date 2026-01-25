@@ -83,18 +83,13 @@
             font-size: 0.9rem;
         }
 
-        .form-group input {
+        .form-group input,
+        .form-group select {
             width: 100%;
             padding: 12px 15px;
             border: 1px solid #e5e7eb;
             border-radius: 8px;
             font-family: inherit;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--accent);
         }
 
         .btn-block {
@@ -128,8 +123,11 @@
             <nav>
                 <ul class="nav-links">
                     <li><a href="index.html">Home</a></li>
+                    <li><a href="admissions.html">Admissions</a></li>
                     <li><a href="calendar.html">Calendar</a></li>
                     <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="news.html">News</a></li>
+                    <li><a href="contact.html">Contact</a></li>
                 </ul>
             </nav>
             <div class="mobile-toggle"><i class="fas fa-bars"></i></div>
@@ -146,19 +144,56 @@
             <div class="toggle-btns">
                 <button class="toggle-btn active" onclick="switchLogin('student')">Student</button>
                 <button class="toggle-btn" onclick="switchLogin('staff')">Staff</button>
+                <button class="toggle-btn" onclick="switchLogin('owner')">Owner</button>
             </div>
 
             <form onsubmit="handleLogin(event)">
                 <div class="form-group">
-                    <label>ID / Email</label>
-                    <input type="text" placeholder="Enter your ID or Email" required>
+                    <label>Username</label>
+                    <input type="text" id="login-user" placeholder="Enter Username" required>
                 </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" placeholder="••••••••" required>
+                    <input type="password" id="login-pass" placeholder="••••••••" required>
                 </div>
                 <button type="submit" class="btn-primary btn-block">Sign In</button>
-                <a href="#" class="forgot-pass">Forgot Password?</a>
+                <div style="display:flex; justify-content:center; margin-top:15px; gap: 20px;">
+                    <a href="#" class="forgot-pass"
+                        onclick="document.getElementById('reg-modal').style.display='flex'; return false;">Create
+                        Account</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Registration Modal -->
+    <div id="reg-modal"
+        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); align-items:center; justify-content:center; z-index:2000;">
+        <div class="login-card" style="max-width:400px; position:relative;">
+            <span onclick="document.getElementById('reg-modal').style.display='none'"
+                style="position:absolute; right:20px; top:20px; cursor:pointer; font-size:1.5rem;">&times;</span>
+            <h3 style="margin-bottom:20px;">Register New Account</h3>
+            <form onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="reg-name" required>
+                </div>
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="reg-user" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="reg-pass" required>
+                </div>
+                <div class="form-group">
+                    <label>Role</label>
+                    <select id="reg-role">
+                        <option value="student">Student</option>
+                        <option value="staff">Staff</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary btn-block">Register</button>
             </form>
         </div>
     </div>
@@ -169,40 +204,67 @@
         </div>
     </footer>
 
+    <script src="mock-db.js"></script>
     <script src="script.js"></script>
     <script>
         function switchLogin(type) {
             const btns = document.querySelectorAll('.toggle-btn');
             const title = document.getElementById('login-title');
 
+            btns.forEach(b => b.classList.remove('active'));
+
             if (type === 'student') {
                 btns[0].classList.add('active');
-                btns[1].classList.remove('active');
                 title.innerText = 'Student Portal';
-            } else {
-                btns[0].classList.remove('active');
+            } else if (type === 'staff') {
                 btns[1].classList.add('active');
                 title.innerText = 'Staff Portal';
+            } else {
+                btns[2].classList.add('active');
+                title.innerText = 'Owner Portal';
             }
         }
 
         function handleLogin(event) {
             event.preventDefault();
+            const userIn = document.getElementById('login-user').value;
+            const passIn = document.getElementById('login-pass').value;
             const title = document.getElementById('login-title').innerText;
 
-            // Simple mock redirect based on current toggle
-            if (title.includes('Student')) {
-                window.location.href = 'dashboard-student.html';
-            } else {
-                // Determine if it's admin or staff (mock logic)
-                // For demo, we'll just go to Staff dashboard, 
-                // but you can open dashboard-owner.html manually to see Owner view.
-                const email = document.querySelector('input[type="text"]').value.toLowerCase();
-                if (email.includes('admin') || email.includes('owner')) {
-                    window.location.href = 'dashboard-owner.html';
-                } else {
-                    window.location.href = 'dashboard-staff.html';
+            const user = DB.login(userIn, passIn);
+
+            if (user) {
+                // Role Check Verification
+                if (title.includes('Owner') && user.role !== 'owner') {
+                    alert('Access Denied: You are not an Owner.');
+                    return;
                 }
+
+                localStorage.setItem('currentUser', JSON.stringify(user));
+
+                if (user.role === 'owner') {
+                    window.location.href = 'dashboard-owner.html';
+                } else if (user.role === 'staff') {
+                    window.location.href = 'dashboard-staff.html';
+                } else {
+                    window.location.href = 'dashboard-student.html';
+                }
+            } else {
+                alert('Invalid credentials! Please try again or register.');
+            }
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            const name = document.getElementById('reg-name').value;
+            const user = document.getElementById('reg-user').value;
+            const pass = document.getElementById('reg-pass').value;
+            const role = document.getElementById('reg-role').value;
+
+            const res = DB.addUser({ username: user, password: pass, role: role, name: name });
+            alert(res.message);
+            if (res.success) {
+                document.getElementById('reg-modal').style.display = 'none';
             }
         }
     </script>

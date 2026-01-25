@@ -23,11 +23,11 @@
         </a>
 
         <ul class="sidebar-menu">
-            <li><a href="#" class="active"><i class="fas fa-th-large"></i> <span>Overview</span></a></li>
-            <li><a href="#"><i class="fas fa-users"></i> <span>Manage Staff</span></a></li>
-            <li><a href="#"><i class="fas fa-user-graduate"></i> <span>Students</span></a></li>
-            <li><a href="#"><i class="fas fa-chart-bar"></i> <span>Reports</span></a></li>
-            <li><a href="#"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+            <li><a href="#" onclick="showTab('overview')"><i class="fas fa-th-large"></i> <span>Overview</span></a></li>
+            <li><a href="#" onclick="showTab('users')"><i class="fas fa-users"></i> <span>Manage Users</span></a></li>
+            <li><a href="#" onclick="showTab('calendar')"><i class="fas fa-calendar-alt"></i> <span>Calendar</span></a>
+            </li>
+            <li><a href="#" onclick="showTab('settings')"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
         </ul>
 
         <div class="user-profile">
@@ -47,97 +47,309 @@
                 style="color: var(--primary); border-color: var(--primary);">Logout</a>
         </div>
 
-        <!-- Global Stats -->
-        <div class="stats-overview">
-            <div class="stat-card">
-                <div class="stat-icon" style="background-color: #e0f2fe; color: #0284c7;">
-                    <i class="fas fa-user-graduate"></i>
+        <!-- Tab Navigation -->
+        <div style="margin-bottom:30px; border-bottom:1px solid #ddd;">
+            <button class="tab-btn active" onclick="showTab('overview')">Overview</button>
+            <button class="tab-btn" onclick="showTab('users')">User Management</button>
+            <button class="tab-btn" onclick="showTab('calendar')">Calendar Control</button>
+            <button class="tab-btn" onclick="showTab('settings')">Settings</button>
+        </div>
+
+        <!-- OVERVIEW TAB -->
+        <div id="tab-overview">
+            <div class="stats-overview">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #e0f2fe; color: #0284c7;">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="total-students">0</h3>
+                        <p>Total Students</p>
+                    </div>
                 </div>
-                <div class="stat-info">
-                    <h3>1,200</h3>
-                    <p>Total Students</p>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon" style="background-color: #fce7f3; color: #db2777;">
-                    <i class="fas fa-chalkboard-teacher"></i>
-                </div>
-                <div class="stat-info">
-                    <h3>85</h3>
-                    <p>Total Staff</p>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon" style="background-color: #dcfce7; color: #16a34a;">
-                    <i class="fas fa-book"></i>
-                </div>
-                <div class="stat-info">
-                    <h3>340</h3>
-                    <p>Active Courses</p>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon" style="background-color: #fff7ed; color: #ea580c;">
-                    <i class="fas fa-dollar-sign"></i>
-                </div>
-                <div class="stat-info">
-                    <h3>$1.2M</h3>
-                    <p>Revenue YTD</p>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: #fce7f3; color: #db2777;">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="total-staff">0</h3>
+                        <p>Total Staff</p>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- System Controls -->
-        <div class="dashboard-section">
-            <div class="section-title">
-                <h2>Quick Actions</h2>
-            </div>
-            <div style="display: flex; gap: 20px;">
-                <button class="btn-primary" onclick="alert('Open Add Staff Modal')"><i class="fas fa-plus"></i> Add New
-                    Staff</button>
-                <button class="btn-outline" style="color: var(--primary); border-color: var(--primary);"
-                    onclick="alert('Generating Report...')"><i class="fas fa-download"></i> Download Report</button>
+        <!-- USERS TAB -->
+        <div id="tab-users" style="display:none;">
+            <div class="dashboard-section">
+                <div class="section-title">
+                    <h2>Manage Users</h2>
+                    <button class="btn-primary" onclick="alert('Use Login Page to Register new users for now!')"><i
+                            class="fas fa-plus"></i> Add User</button>
+                </div>
+                <table class="table-responsive">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>Role</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-table-body">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
             </div>
         </div>
 
-        <!-- Recent Activity Log -->
-        <div class="dashboard-section">
-            <div class="section-title">
-                <h2>System Activity</h2>
+        <!-- CALENDAR TAB -->
+        <div id="tab-calendar" style="display:none;">
+            <div class="dashboard-section">
+                <div class="section-title">
+                    <h2>Add Calendar Event</h2>
+                </div>
+                <form class="dashboard-form" onsubmit="handleAddEvent(event)">
+                    <div>
+                        <label>Event Title</label>
+                        <input type="text" id="evt-title" required>
+                    </div>
+                    <div>
+                        <label>Category (Tag)</label>
+                        <select id="evt-tag">
+                            <option>Sports</option>
+                            <option>Academic</option>
+                            <option>Arts</option>
+                            <option>Exam</option>
+                            <option>Holiday</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Date (Day)</label>
+                        <input type="number" id="evt-day" min="1" max="31" placeholder="e.g. 25" required>
+                    </div>
+                    <div>
+                        <label>Month (Short)</label>
+                        <input type="text" id="evt-month" placeholder="e.g. NOV" required>
+                    </div>
+                    <div>
+                        <label>Time</label>
+                        <input type="text" id="evt-time" placeholder="e.g. 10:00 AM">
+                    </div>
+                    <div>
+                        <label>Location</label>
+                        <input type="text" id="evt-loc" placeholder="e.g. Auditorium">
+                    </div>
+                    <button type="submit" class="btn-primary">Add to Calendar</button>
+                </form>
             </div>
-            <table class="table-responsive">
-                <thead>
-                    <tr>
-                        <th>Time</th>
-                        <th>User</th>
-                        <th>Action</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>10:45 AM</td>
-                        <td>Sarah (Staff)</td>
-                        <td>Uploaded Marks for Math 101</td>
-                        <td><span class="status-badge status-completed">Success</span></td>
-                    </tr>
-                    <tr>
-                        <td>09:30 AM</td>
-                        <td>System</td>
-                        <td>Daily Backup</td>
-                        <td><span class="status-badge status-completed">Success</span></td>
-                    </tr>
-                    <tr>
-                        <td>Yesterday</td>
-                        <td>John (Student)</td>
-                        <td>Failed Login Attempt</td>
-                        <td><span class="status-badge status-missing">Warning</span></td>
-                    </tr>
-                </tbody>
-            </table>
+        </div>
+
+        <!-- SETTINGS TAB -->
+        <div id="tab-settings" style="display:none;">
+            <div class="dashboard-section">
+                <div class="section-title">
+                    <h2>Website Settings</h2>
+                </div>
+                <form class="dashboard-form" onsubmit="handleSaveSettings(event)">
+                    <div>
+                        <label>School Name</label>
+                        <input type="text" id="set-name" required>
+                    </div>
+                    <div>
+                        <label>Global Announcement (Banner)</label>
+                        <input type="text" id="set-announce">
+                    </div>
+                    <button type="submit" class="btn-primary">Save Changes</button>
+                    <p id="settings-msg" style="color: green; display: none; margin-top: 10px;">Settings Saved!</p>
+                </form>
+            </div>
+
+            <div class="dashboard-section">
+                <div class="section-title">
+                    <h2>Danger Zone</h2>
+                </div>
+                <button class="btn-outline" style="border-color: red; color: red;"
+                    onclick="if(confirm('Clear all data?')) { localStorage.clear(); location.reload(); }">Reset Entire
+                    System</button>
+            </div>
         </div>
 
     </main>
+
+    <!-- Edit User Modal -->
+    <div id="edit-user-modal"
+        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); align-items:center; justify-content:center; z-index:2000;">
+        <div class="login-card" style="max-width:400px; position:relative;">
+            <span onclick="document.getElementById('edit-user-modal').style.display='none'"
+                style="position:absolute; right:20px; top:20px; cursor:pointer; font-size:1.5rem;">&times;</span>
+            <h3 style="margin-bottom:20px;">Edit User</h3>
+            <form onsubmit="handleEditUser(event)">
+                <input type="hidden" id="edit-original-user">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="edit-name" required>
+                </div>
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="edit-user" required>
+                </div>
+                <div class="form-group">
+                    <label>New Password (leave blank to keep current)</label>
+                    <input type="text" id="edit-pass" placeholder="New Password">
+                </div>
+                <div class="form-group">
+                    <label>Role</label>
+                    <select id="edit-role" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd;">
+                        <option value="student">Student</option>
+                        <option value="staff">Staff</option>
+                        <option value="owner">Owner</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary btn-block">Update User</button>
+            </form>
+        </div>
+    </div>
+
+    <style>
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            color: var(--text-light);
+            transition: all 0.3s;
+        }
+
+        .tab-btn:hover {
+            background-color: #f3f4f6;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+            font-weight: 600;
+        }
+    </style>
+
+    <script src="mock-db.js"></script>
+    <script>
+        // Init Dashboard
+        function initDash() {
+            const users = DB.getUsers();
+
+            // Stats
+            document.getElementById('total-students').textContent = users.filter(u => u.role === 'student').length;
+            document.getElementById('total-staff').textContent = users.filter(u => u.role === 'staff').length;
+
+            // Users Table
+            const tbody = document.getElementById('users-table-body');
+            tbody.innerHTML = '';
+            users.forEach(u => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${u.name || 'N/A'}</td>
+                    <td>${u.username}</td>
+                    <td><span class="status-badge ${u.role === 'owner' ? 'status-completed' : 'status-pending'}">${u.role}</span></td>
+                    <td>
+                        <button onclick="openEditUser('${u.username}')" style="color:var(--primary); background:none; border:none; cursor:pointer; margin-right:10px;">Edit</button>
+                        ${u.username !== 'Anees' ? `<button onclick="deleteUser('${u.username}')" style="color:red; background:none; border:none; cursor:pointer;">Delete</button>` : ''}
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            // Init Settings
+            const settings = DB.getSettings();
+            if (settings && document.getElementById('set-name')) {
+                document.getElementById('set-name').value = settings.schoolName || '';
+                document.getElementById('set-announce').value = settings.announcement || '';
+            }
+        }
+
+        function deleteUser(username) {
+            if (confirm('Delete this user?')) {
+                DB.deleteUser(username);
+                initDash();
+            }
+        }
+
+        function openEditUser(username) {
+            const users = DB.getUsers();
+            const user = users.find(u => u.username === username);
+            if (user) {
+                document.getElementById('edit-original-user').value = user.username;
+                document.getElementById('edit-name').value = user.name || '';
+                document.getElementById('edit-user').value = user.username;
+                document.getElementById('edit-pass').value = ''; // Don't show password
+                document.getElementById('edit-role').value = user.role;
+                document.getElementById('edit-user-modal').style.display = 'flex';
+            }
+        }
+
+        function handleEditUser(e) {
+            e.preventDefault();
+            const originalUser = document.getElementById('edit-original-user').value;
+            const newData = {
+                name: document.getElementById('edit-name').value,
+                username: document.getElementById('edit-user').value,
+                role: document.getElementById('edit-role').value
+            };
+
+            const newPass = document.getElementById('edit-pass').value;
+            if (newPass.trim() !== '') {
+                newData.password = newPass;
+            }
+
+            const res = DB.updateUser(originalUser, newData);
+            alert(res.message);
+            if (res.success) {
+                document.getElementById('edit-user-modal').style.display = 'none';
+                initDash();
+            }
+        }
+
+        function handleSaveSettings(e) {
+            e.preventDefault();
+            const settings = {
+                schoolName: document.getElementById('set-name').value,
+                announcement: document.getElementById('set-announce').value
+            };
+            DB.saveSettings(settings);
+
+            const msg = document.getElementById('settings-msg');
+            msg.style.display = 'block';
+            setTimeout(() => msg.style.display = 'none', 2000);
+        }
+
+        function handleAddEvent(e) {
+            e.preventDefault();
+            const event = {
+                title: document.getElementById('evt-title').value,
+                tag: document.getElementById('evt-tag').value,
+                day: document.getElementById('evt-day').value,
+                month: document.getElementById('evt-month').value,
+                time: document.getElementById('evt-time').value,
+                location: document.getElementById('evt-loc').value
+            };
+            DB.addEvent(event);
+            alert('Event added!');
+            e.target.reset();
+        }
+
+        function showTab(tabName) {
+            ['overview', 'users', 'calendar', 'settings'].forEach(t => {
+                const el = document.getElementById('tab-' + t);
+                if (el) el.style.display = (t === tabName) ? 'block' : 'none';
+            });
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        initDash();
+    </script>
 </body>
 
 </html>
