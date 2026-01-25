@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources - Lumina Academy</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair Display:wght@600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body class="dashboard-body">
+
+    <aside class="sidebar">
+        <a href="index.html" class="logo">
+            <i class="fas fa-graduation-cap"></i>
+            <span>Lumina</span>
+        </a>
+        <ul class="sidebar-menu">
+            <li><a href="dashboard-student.html"><i class="fas fa-home"></i> <span>My Dashboard</span></a></li>
+            <li><a href="dashboard-messages.html"><i class="fas fa-envelope"></i> <span>Messages</span></a></li>
+            <li><a href="dashboard-attendance.html"><i class="fas fa-calendar-check"></i> <span>Attendance</span></a>
+            </li>
+            <li><a href="#" class="active"><i class="fas fa-book"></i> <span>Resources</span></a></li>
+        </ul>
+        <div class="user-profile">
+            <div class="user-avatar" style="background-color: #ffd700;">J</div>
+            <div class="user-info">
+                <h4>Jane Student</h4>
+                <p>Class 12-A</p>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="dashboard-header">
+            <h1>Study Resources</h1>
+            <div style="position: relative;">
+                <input type="text" placeholder="Search files..."
+                    style="padding: 10px 15px; border-radius: 50px; border: 1px solid #ddd; padding-left: 35px;">
+                <i class="fas fa-search" style="position: absolute; left: 12px; top: 12px; color: #aaa;"></i>
+            </div>
+        </div>
+
+        <div class="dashboard-section">
+            <div class="section-title">
+                <h2>Physics</h2>
+            </div>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <div class="resource-icon"><i class="fas fa-file-pdf"></i></div>
+                    <div>
+                        <h4 style="margin-bottom: 5px;">Chapter 4: Forces</h4>
+                        <p style="font-size: 0.8rem; color: #888; margin-bottom: 10px;">PDF • 2.4 MB</p>
+                        <a href="#" style="color: var(--primary); font-weight: 600; font-size: 0.9rem;">Download <i
+                                class="fas fa-download"></i></a>
+                    </div>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-icon"><i class="fas fa-file-powerpoint" style="color: #f97316;"></i></div>
+                    <div>
+                        <h4 style="margin-bottom: 5px;">Lecture Slides: Optics</h4>
+                        <p style="font-size: 0.8rem; color: #888; margin-bottom: 10px;">PPTX • 5.1 MB</p>
+                        <a href="#" style="color: var(--primary); font-weight: 600; font-size: 0.9rem;">Download <i
+                                class="fas fa-download"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-section">
+            <div class="section-title">
+                <h2>Mathematics</h2>
+            </div>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <div class="resource-icon"><i class="fas fa-file-alt" style="color: #3b82f6;"></i></div>
+                    <div>
+                        <h4 style="margin-bottom: 5px;">Calculus Worksheet 3</h4>
+                        <p style="font-size: 0.8rem; color: #888; margin-bottom: 10px;">DOCX • 1.2 MB</p>
+                        <a href="#" style="color: var(--primary); font-weight: 600; font-size: 0.9rem;">Download <i
+                                class="fas fa-download"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</body>
+
+</html>

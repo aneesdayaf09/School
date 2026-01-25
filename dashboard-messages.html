@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages - Lumina Academy</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair Display:wght@600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body class="dashboard-body">
+
+    <aside class="sidebar">
+        <a href="index.html" class="logo">
+            <i class="fas fa-graduation-cap"></i>
+            <span>Lumina</span>
+        </a>
+        <ul class="sidebar-menu">
+            <li><a href="dashboard-student.html"><i class="fas fa-home"></i> <span>My Dashboard</span></a></li>
+            <li><a href="#" class="active"><i class="fas fa-envelope"></i> <span>Messages</span></a></li>
+            <li><a href="dashboard-attendance.html"><i class="fas fa-calendar-check"></i> <span>Attendance</span></a>
+            </li>
+            <li><a href="dashboard-resources.html"><i class="fas fa-book"></i> <span>Resources</span></a></li>
+        </ul>
+        <div class="user-profile">
+            <div class="user-avatar" style="background-color: #ffd700;">J</div>
+            <div class="user-info">
+                <h4>Jane Student</h4>
+                <p>Class 12-A</p>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="dashboard-header">
+            <h1>Messages</h1>
+            <button class="btn-primary"><i class="fas fa-pen"></i> New Message</button>
+        </div>
+
+        <div class="messages-container">
+            <!-- Sidebar -->
+            <div class="chat-sidebar">
+                <div class="chat-user-item active">
+                    <div class="chat-user-avatar">MA</div>
+                    <div class="chat-user-info">
+                        <h4>Mr. Anderson</h4>
+                        <p>Physics Teacher</p>
+                    </div>
+                </div>
+                <div class="chat-user-item">
+                    <div class="chat-user-avatar" style="background: #e0f2fe; color: #0284c7;">AD</div>
+                    <div class="chat-user-info">
+                        <h4>Admin Desk</h4>
+                        <p>Regarding fee payment...</p>
+                    </div>
+                </div>
+                <div class="chat-user-item">
+                    <div class="chat-user-avatar" style="background: #fce7f3; color: #db2777;">LS</div>
+                    <div class="chat-user-info">
+                        <h4>Ms. Laura Smith</h4>
+                        <p>Math Assignment help</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Window -->
+            <div class="chat-window">
+                <div class="chat-header">
+                    <div class="chat-user-avatar">MA</div>
+                    <div>
+                        <h4 style="margin:0;">Mr. Anderson</h4>
+                        <p style="margin:0; font-size:0.8rem; color: #888;">Online</p>
+                    </div>
+                </div>
+
+                <div class="chat-messages" id="chat-feed">
+                    <div class="message-bubble message-received">
+                        Hello Jane, don't forget the Physics lab report is due tomorrow.
+                        <div style="font-size:0.7rem; color:#888; margin-top:5px;">10:30 AM</div>
+                    </div>
+                    <div class="message-bubble message-sent">
+                        Hi Mr. Anderson! Yes, I'm almost done with it. I had a quick question about the graph analysis.
+                        <div style="font-size:0.7rem; color:rgba(255,255,255,0.8); margin-top:5px;">10:35 AM</div>
+                    </div>
+                    <div class="message-bubble message-received">
+                        Sure, go ahead. You can stop by the faculty room during lunch break too.
+                        <div style="font-size:0.7rem; color:#888; margin-top:5px;">10:36 AM</div>
+                    </div>
+                </div>
+
+                <div class="chat-input-area">
+                    <input type="text" id="msg-input" placeholder="Type a message...">
+                    <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        function sendMessage() {
+            const input = document.getElementById('msg-input');
+            const text = input.value;
+            if (text.trim() === '') return;
+
+            const feed = document.getElementById('chat-feed');
+            const bubble = document.createElement('div');
+            bubble.className = 'message-bubble message-sent';
+            bubble.innerHTML = `${text}<div style="font-size:0.7rem; color:rgba(255,255,255,0.8); margin-top:5px;">Just now</div>`;
+
+            feed.appendChild(bubble);
+            input.value = '';
+            feed.scrollTop = feed.scrollHeight;
+        }
+    </script>
+</body>
+
+</html>

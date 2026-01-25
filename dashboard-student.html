@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - Lumina Academy</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair Display:wght@600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body class="dashboard-body">
+
+    <aside class="sidebar">
+        <a href="index.html" class="logo">
+            <i class="fas fa-graduation-cap"></i>
+            <span>Lumina</span>
+        </a>
+        <ul class="sidebar-menu">
+            <li><a href="#" class="active"><i class="fas fa-home"></i> <span>My Dashboard</span></a></li>
+            <li><a href="dashboard-messages.html"><i class="fas fa-envelope"></i> <span>Messages</span></a></li>
+            <li><a href="dashboard-attendance.html"><i class="fas fa-calendar-check"></i> <span>Attendance</span></a>
+            </li>
+            <li><a href="dashboard-resources.html"><i class="fas fa-book"></i> <span>Resources</span></a></li>
+        </ul>
+        <div class="user-profile">
+            <div class="user-avatar" style="background-color: #ffd700;">J</div>
+            <div class="user-info">
+                <h4>Jane Student</h4>
+                <p>Class 12-A</p>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="dashboard-header">
+            <h1>Student Portal</h1>
+            <a href="index.html" class="btn-outline"
+                style="color: var(--primary); border-color: var(--primary);">Logout</a>
+        </div>
+
+        <!-- Assignments Area -->
+        <div class="dashboard-section">
+            <div class="section-title">
+                <h2>Pending Assignments</h2>
+            </div>
+            <table class="table-responsive">
+                <thead>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Assignment</th>
+                        <th>Due Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Mathematics</td>
+                        <td>Calculus Homework 2</td>
+                        <td>Tomorrow</td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><a href="#" style="color: var(--accent); font-weight: bold;">Submit &rarr;</a></td>
+                    </tr>
+                    <tr>
+                        <td>Physics</td>
+                        <td>Lab Report: Optics</td>
+                        <td>Oct 30</td>
+                        <td><span class="status-badge status-missing">Overdue</span></td>
+                        <td><a href="#" style="color: var(--accent); font-weight: bold;">Submit &rarr;</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Exams & Marks -->
+        <div class="dashboard-section">
+            <div class="section-title">
+                <h2>Exam Results</h2>
+            </div>
+            <table class="table-responsive">
+                <thead>
+                    <tr>
+                        <th>Exam / Quiz</th>
+                        <th>Type</th>
+                        <th>Date</th>
+                        <th>Score</th>
+                        <th>Grade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>History Final</td>
+                        <td>Paper Exam (Manual)</td>
+                        <td>Oct 15</td>
+                        <td><strong>88/100</strong></td>
+                        <td><span style="color: #059669; font-weight: bold;">A</span></td>
+                    </tr>
+                    <tr>
+                        <td>Chemistry Quiz 4</td>
+                        <td>Online (Auto)</td>
+                        <td>Oct 20</td>
+                        <td><strong>45/50</strong></td>
+                        <td><span style="color: #059669; font-weight: bold;">A-</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+</body>
+
+</html>

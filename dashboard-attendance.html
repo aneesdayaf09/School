@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance - Lumina Academy</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair Display:wght@600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body class="dashboard-body">
+
+    <aside class="sidebar">
+        <a href="index.html" class="logo">
+            <i class="fas fa-graduation-cap"></i>
+            <span>Lumina</span>
+        </a>
+        <ul class="sidebar-menu">
+            <li><a href="dashboard-student.html"><i class="fas fa-home"></i> <span>My Dashboard</span></a></li>
+            <li><a href="dashboard-messages.html"><i class="fas fa-envelope"></i> <span>Messages</span></a></li>
+            <li><a href="#" class="active"><i class="fas fa-calendar-check"></i> <span>Attendance</span></a></li>
+            <li><a href="dashboard-resources.html"><i class="fas fa-book"></i> <span>Resources</span></a></li>
+        </ul>
+        <div class="user-profile">
+            <div class="user-avatar" style="background-color: #ffd700;">J</div>
+            <div class="user-info">
+                <h4>Jane Student</h4>
+                <p>Class 12-A</p>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="dashboard-header">
+            <h1>Attendance Record</h1>
+            <div class="stat-badge"
+                style="background: #d1fae5; color: #065f46; padding: 10px 20px; border-radius: 20px; font-weight: bold;">
+                95% Attendance
+            </div>
+        </div>
+
+        <div class="dashboard-section">
+            <div class="section-title">
+                <h2>October 2024</h2>
+                <div style="display:flex; gap: 15px; font-size: 0.8rem;">
+                    <span style="display:flex; align-items:center; gap:5px;">
+                        <div class="day-present" style="width:15px; height:15px;"></div> Present
+                    </span>
+                    <span style="display:flex; align-items:center; gap:5px;">
+                        <div class="day-absent" style="width:15px; height:15px;"></div> Absent
+                    </span>
+                    <span style="display:flex; align-items:center; gap:5px;">
+                        <div class="day-late" style="width:15px; height:15px;"></div> Late
+                    </span>
+                </div>
+            </div>
+
+            <div class="attendance-heatmap">
+                <!-- Generating mock days -->
+                <script>
+                    for (let i = 1; i <= 31; i++) {
+                        let status = 'day-present';
+                        // Mock random absences
+                        if (i === 12 || i === 24) status = 'day-absent';
+                        if (i === 5) status = 'day-late';
+
+                        document.write(`<div class="attendance-day ${status}" title="Oct ${i}">${i}</div>`);
+                    }
+                </script>
+            </div>
+        </div>
+
+        <div class="dashboard-section">
+            <div class="section-title">
+                <h2>Absence History</h2>
+            </div>
+            <table class="table-responsive">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Reason</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Oct 24, 2024</td>
+                        <td><span class="status-badge status-missing">Absent</span></td>
+                        <td>Sick Leave</td>
+                        <td><button class="btn-outline"
+                                style="padding: 5px 10px; font-size: 0.8rem; border-color: #ddd; color: #666;">View
+                                Note</button></td>
+                    </tr>
+                    <tr>
+                        <td>Oct 12, 2024</td>
+                        <td><span class="status-badge status-missing">Absent</span></td>
+                        <td>Family Emergency</td>
+                        <td><button class="btn-outline"
+                                style="padding: 5px 10px; font-size: 0.8rem; border-color: #ddd; color: #666;">View
+                                Note</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+</body>
+
+</html>

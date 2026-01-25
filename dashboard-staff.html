@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Dashboard - Lumina Academy</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair Display:wght@600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body class="dashboard-body">
+
+    <aside class="sidebar">
+        <a href="index.html" class="logo">
+            <i class="fas fa-graduation-cap"></i>
+            <span>Lumina</span>
+        </a>
+        <ul class="sidebar-menu">
+            <li><a href="#" class="active"><i class="fas fa-home"></i> <span>Overview</span></a></li>
+            <li><a href="#"><i class="fas fa-book-open"></i> <span>Assignments</span></a></li>
+            <li><a href="#"><i class="fas fa-marker"></i> <span>Marks/Grading</span></a></li>
+            <li><a href="#"><i class="fas fa-calendar-alt"></i> <span>Schedule</span></a></li>
+        </ul>
+        <div class="user-profile">
+            <div class="user-avatar">S</div>
+            <div class="user-info">
+                <h4>Mr. Anderson</h4>
+                <p>Senior Teacher</p>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="dashboard-header">
+            <h1>Staff Portal</h1>
+            <a href="index.html" class="btn-outline"
+                style="color: var(--primary); border-color: var(--primary);">Logout</a>
+        </div>
+
+        <!-- Grading Tool -->
+        <div class="dashboard-section">
+            <div class="section-title">
+                <h2>Upload Exam Result</h2>
+            </div>
+            <form class="dashboard-form" onsubmit="event.preventDefault(); alert('Result Uploaded Successfully!');">
+                <div>
+                    <label style="display:block; margin-bottom:5px; font-weight:500;">Student ID</label>
+                    <input type="text" placeholder="e.g. STU-2024-001">
+                </div>
+                <div>
+                    <label style="display:block; margin-bottom:5px; font-weight:500;">Subject</label>
+                    <select>
+                        <option>Mathematics</option>
+                        <option>Physics</option>
+                        <option>Literature</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="display:block; margin-bottom:5px; font-weight:500;">Exam Type</label>
+                    <select>
+                        <option>Mid-Term Paper</option>
+                        <option>Final Exam</option>
+                        <option>Quiz</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="display:block; margin-bottom:5px; font-weight:500;">Mark Scored</label>
+                    <input type="number" placeholder="0-100">
+                </div>
+                <div class="full-width">
+                    <label style="display:block; margin-bottom:5px; font-weight:500;">Teacher Comments</label>
+                    <textarea rows="3" placeholder="Enter feedback..."></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Upload marks</button>
+            </form>
+        </div>
+
+        <!-- Create Assignment -->
+        <div class="dashboard-section">
+            <div class="section-title">
+                <h2>Create New Assignment</h2>
+            </div>
+            <form class="dashboard-form" onsubmit="event.preventDefault(); alert('Assignment Created!');">
+                <div class="full-width">
+                    <label style="display:block; margin-bottom:5px; font-weight:500;">Assignment Title</label>
+                    <input type="text" placeholder="e.g. Calculus Problem Set 3">
+                </div>
+                <div>
+                    <label style="display:block; margin-bottom:5px; font-weight:500;">Due Date</label>
+                    <input type="date">
+                </div>
+                <div>
+                    <label style="display:block; margin-bottom:5px; font-weight:500;">Attachments</label>
+                    <input type="file">
+                </div>
+                <button type="submit" class="btn-outline"
+                    style="background: var(--primary); color: white; border: none;">Assign to Class</button>
+            </form>
+        </div>
+
+    </main>
+</body>
+
+</html>
